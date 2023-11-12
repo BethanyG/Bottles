@@ -11,9 +11,9 @@ class Bottles:
 
         return (
             f'{str(bottle_number).capitalize()} of beer on the wall, '
-            f'{bottle_number.quantity} {bottle_number.container} of beer.\n'
+            f'{bottle_number} of beer.\n'
             f'{bottle_number.action}, '
-            f'{next_bottle_number.quantity} {next_bottle_number.container} of beer on the wall.\n'
+            f'{next_bottle_number} of beer on the wall.\n'
         )
 
 class BottleNumber:
