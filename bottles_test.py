@@ -1,3 +1,10 @@
+"""
+Added the notion of 12 bottles == 'case', and altered/added test cases accordingly.
+
+- New test case: 'test_case_and_sixpack'
+- Changed test_the_whole_song to accommodate 12 bottles == case
+"""
+
 import unittest
 import pytest
 
@@ -6,7 +13,7 @@ if 'unittest.util' in __import__('sys').modules:
     __import__('sys').modules['unittest.util']._MAX_LENGTH = 999999999
 
 
-from bottles_classmethod import Bottles
+from bottles_classmethod_3 import Bottles
 # from bottles_two_classes import Bottles
 # from bottles import Bottles
 
@@ -90,6 +97,50 @@ class BottlesTest(unittest.TestCase):
             '99 bottles of beer on the wall.\n'
         )
         self.assertEqual(Bottles().verses(2, 0), expected)
+
+    def test_case_and_sixpack(self):
+        expected = (
+            '13 bottles of beer on the wall, '
+            '13 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '1 case of beer on the wall.\n'
+            '\n'
+            '1 case of beer on the wall, '
+            '1 case of beer.\n'
+            'Take one down and pass it around, '
+            '11 bottles of beer on the wall.\n'
+            '\n'
+            '11 bottles of beer on the wall, '
+            '11 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '10 bottles of beer on the wall.\n'
+            '\n'
+            '10 bottles of beer on the wall, '
+            '10 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '9 bottles of beer on the wall.\n'
+            '\n'
+            '9 bottles of beer on the wall, '
+            '9 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '8 bottles of beer on the wall.\n'
+            '\n'
+            '8 bottles of beer on the wall, '
+            '8 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '7 bottles of beer on the wall.\n'
+            '\n'
+            '7 bottles of beer on the wall, '
+            '7 bottles of beer.\n'
+            'Take one down and pass it around, '
+            '1 six-pack of beer on the wall.\n'
+            '\n'
+            '1 six-pack of beer on the wall, '
+            '1 six-pack of beer.\n'
+            'Take one down and pass it around, '
+            '5 bottles of beer on the wall.\n'
+            )
+        self.assertEqual(Bottles().verses(13, 6), expected)
 
     def test_the_whole_song(self):
         expected = """99 bottles of beer on the wall, 99 bottles of beer.
@@ -351,9 +402,9 @@ Take one down and pass it around, 14 bottles of beer on the wall.
 Take one down and pass it around, 13 bottles of beer on the wall.
 
 13 bottles of beer on the wall, 13 bottles of beer.
-Take one down and pass it around, 12 bottles of beer on the wall.
+Take one down and pass it around, 1 case of beer on the wall.
 
-12 bottles of beer on the wall, 12 bottles of beer.
+1 case of beer on the wall, 1 case of beer.
 Take one down and pass it around, 11 bottles of beer on the wall.
 
 11 bottles of beer on the wall, 11 bottles of beer.

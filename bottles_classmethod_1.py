@@ -8,6 +8,7 @@ class Bottles:
     def verse(self, number):
         bottle_number = BottleNumber.from_number(number)
 
+
         return (
             f'{str(bottle_number).capitalize()} of beer on the wall, '
             f'{bottle_number} of beer.\n'
@@ -31,22 +32,62 @@ class BottleNumber:
 
     @classmethod
     def from_number(cls, number):
-        # With this strategy, the class reconfigures itself by overriding
-        # specific attributes, and returning a custom instance.
-        # But the factory has to hold all this logic around customization.
+        # 'Factory' still has to know the names of the derived classes.
+        #  The logic here also has to make many routing decisions based on the number.
         match number:
             case -1:
                 return cls(99)
             case 0:
-                return cls(number, action='Go to the store and buy some more', quantity='no more')
+                return BottleNumber0(number)
             case 1:
-                return cls(number, container='bottle', pronoun='it')
+                return BottleNumber1(number)
             case 6:
-                return cls(number, container='six-pack', quantity='1')
+                return BottleNumber6(number)
             case 12:
-                return cls(number, container='case', quantity='1')
+                return BottleNumber12(number)
             case _:
                 return cls(number)
 
     def __str__(self):
         return f'{self.quantity} {self.container}'
+
+
+class BottleNumber0(BottleNumber):
+
+    def __init__(self, number):
+        # Calls the parent 'constructor' back and overrides the attributes that are different.
+        super().__init__(number, action='Go to the store and buy some more', quantity='no more')
+
+    @property
+    def successor(self):
+        return BottleNumber.from_number(99)
+
+
+class BottleNumber1(BottleNumber):
+
+    def __init__(self, number):
+        super().__init__(number, container='bottle', pronoun='it')
+
+    @property
+    def successor(self):
+        return BottleNumber.from_number(self.number - 1)
+
+
+class BottleNumber6(BottleNumber):
+
+    def __init__(self, number):
+        super().__init__(number, container='six-pack', quantity='1')
+
+    @property
+    def successor(self):
+        return BottleNumber.from_number(self.number - 1)
+
+
+class BottleNumber12(BottleNumber):
+
+    def __init__(self, number):
+        super().__init__(number, container='case', quantity='1')
+
+    @property
+    def successor(self):
+        return BottleNumber.from_number(self.number - 1)
