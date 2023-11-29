@@ -17,12 +17,12 @@ class Bottles:
         )
 
 class BottleNumber:
-    def __init__(self, number, action=None, container='bottles', pronoun='one', quantity=None):
+    def __init__(self, number):
         self.number = number
-        self.pronoun = pronoun
-        self.action = action or f'Take {self.pronoun} down and pass it around'
-        self.container = container
-        self.quantity = quantity or str(self.number)
+        self.pronoun = 'one'
+        self.action = f'Take {self.pronoun} down and pass it around'
+        self.container = 'bottles'
+        self.quantity = str(self.number)
 
     # This can't be in __init__, because it causes a recursion error.
     # Since @property runs after init, this will resolve correctly.
@@ -54,7 +54,9 @@ class BottleNumber0(BottleNumber):
 
     def __init__(self, number):
         # Calls the parent 'constructor' back and overrides the attributes that are different.
-        super().__init__(number, action='Go to the store and buy some more', quantity='no more')
+        super().__init__(number)
+        self.action = 'Go to the store and buy some more'
+        self.quantity = 'no more'
 
     @property
     def successor(self):
@@ -64,28 +66,23 @@ class BottleNumber0(BottleNumber):
 class BottleNumber1(BottleNumber):
 
     def __init__(self, number):
-        super().__init__(number, container='bottle', pronoun='it')
-
-    @property
-    def successor(self):
-        return BottleNumber.from_number(self.number - 1)
+        super().__init__(number)
+        self.pronoun = 'it'
+        self.action = f'Take {self.pronoun} down and pass it around'
+        self.container = 'bottle'
 
 
 class BottleNumber6(BottleNumber):
 
     def __init__(self, number):
-        super().__init__(number, container='six-pack', quantity='1')
-
-    @property
-    def successor(self):
-        return BottleNumber.from_number(self.number - 1)
+        super().__init__(number)
+        self.container = 'six-pack'
+        self.quantity = '1'
 
 
 class BottleNumber12(BottleNumber):
 
     def __init__(self, number):
-        super().__init__(number, container='case', quantity='1')
-
-    @property
-    def successor(self):
-        return BottleNumber.from_number(self.number - 1)
+        super().__init__(number)
+        self.container = 'case'
+        self.quantity = '1'
