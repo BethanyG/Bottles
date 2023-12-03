@@ -13,7 +13,7 @@ if 'unittest.util' in __import__('sys').modules:
     __import__('sys').modules['unittest.util']._MAX_LENGTH = 999999999
 
 
-from bottles_classmethod_14 import Bottles
+from bottles_classmethod_17 import Bottles
 # from bottles_two_classes import Bottles
 # from bottles import Bottles
 
